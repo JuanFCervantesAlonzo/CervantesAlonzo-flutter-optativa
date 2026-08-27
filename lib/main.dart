@@ -97,7 +97,18 @@ class _AlumnoFormState extends State<AlumnoForm> {
                 border: Border.all(color: Colors.black),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Center(child: Text('IMAGEN')),
+              clipBehavior: Clip.antiAlias,
+              child: Image.network(
+                'https://randomimageurl.com/assets/images/local/20260103_0531_Humorous%20Scene_simple_compose_01ke20wfqvfqasngxqh5dh36gh%20%281%29_compressed_q80.jpeg',
+                fit: BoxFit.cover,
+                loadingBuilder: (context, child, progress) {
+                  if (progress == null) return child;
+                  return const Center(child: CircularProgressIndicator());
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return const Center(child: Text('No se pudo cargar la imagen'));
+                },
+              ),
             ),
           ],
         ),
