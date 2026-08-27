@@ -1,134 +1,119 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      home: Scaffold(
-       appBar: AppBar(
-        title:const  Text('My app modelo'),
-        backgroundColor: Colors.blue,
-       ),
-       body:  SingleChildScrollView(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const AlumnoForm(),
+    );
+  }
+}
+
+class AlumnoForm extends StatefulWidget {
+  const AlumnoForm({super.key});
+
+  @override
+  State<AlumnoForm> createState() => _AlumnoFormState();
+}
+
+class _AlumnoFormState extends State<AlumnoForm> {
+  final nombreController = TextEditingController();
+  final apellidoController = TextEditingController();
+
+  @override
+  void dispose() {
+    nombreController.dispose();
+    apellidoController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('MI PRIMERA APP'),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          children:[
-            const Text('Hello World'),
-            const SizedBox(height: 20),
-            const Text('Bye World'),
-            Container(
-              margin: const EdgeInsets.all(20),
-                child:Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:[
-                const  Text('Row Item 1'),
-                ElevatedButton(
-                    onPressed: () => {},
-                    child: const  Text('Button'),
-                  ),
-                  const Text('Row Item 2')
-                ]
-              )
+          children: [
+            const Text(
+              'FORMULARIO DE ALUMNO',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
-              Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children:[
-               const  Text('Row Item 1'),
-               ElevatedButton(
-                  onPressed: () => {},
-                  child: const  Text('Button'),
-                ),
-                const Text('Row Item 2')
-              ]
-            ),
-            const SizedBox(height: 20),
-           const  TextField(
-            style:TextStyle(
-              color:Colors.red,
-              fontSize: 20,
-            ),
-            decoration: InputDecoration(
+            const SizedBox(height: 16),
+
+            TextField(
+              controller: nombreController,
+              decoration: const InputDecoration(
+                labelText: 'NOMBRE',
                 border: OutlineInputBorder(),
-                labelText: 'Enter text',
               ),
             ),
-            const SizedBox(height: 20),
-           const Text(
-              style:TextStyle(
-                color:Colors.blue,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                backgroundColor: Colors.yellow
-              ) ,
-              "Ejemplo"
+            const SizedBox(height: 16),
+
+            TextField(
+              controller: apellidoController,
+              decoration: const InputDecoration(
+                labelText: 'APELLIDO',
+                border: OutlineInputBorder(),
+              ),
             ),
-            TextButton(
-              onPressed: () => {},
-              child: const Text('Text Button'),
+            const SizedBox(height: 24),
+
+            ElevatedButton(
+              onPressed: () {
+                debugPrint('${nombreController.text} ${apellidoController.text}');
+              },
+              child: const Text('GUARDAR'),
             ),
-            TextButton.icon(
-              onPressed: () => {},
-              icon: const Icon(Icons.add),
-              label: const Text('Add'),
+            const SizedBox(height: 24),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildIcon(Icons.star),
+                _buildIcon(Icons.favorite),
+                _buildIcon(Icons.settings),
+              ],
             ),
-            OutlinedButton(
-              onPressed: () => {},
-              child: const Text('Outlined Button'),
-            ),
-            IconButton(
-              onPressed: () => {},
-              icon: const Icon(Icons.thumb_up),
-            ),
-            const Icon(Icons.fastfood, color: Colors.blue, size: 50),
-            
-            Image.network(
-              width: 200,
-              height: 200,
-              "https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHwxfHxhbmltYWxzfGVufDB8fHx8MTc4NzYxNTg1Nnww&ixlib=rb-4.1.0&fit=max&q=80")
-          ]
-        )
-       ),
-       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: const [
-            DrawerHeader(
+            const SizedBox(height: 24),
+
+            const Text('ESTA ES MI IMAGEN'),
+            const SizedBox(height: 8),
+
+            Container(
+              width: 250,
+              height: 180,
               decoration: BoxDecoration(
-                color: Colors.blue,
+                border: Border.all(color: Colors.black),
+                borderRadius: BorderRadius.circular(12),
               ),
-              child: Text('Drawer Header'),
-            ),
-            ListTile(
-              title: Text('Item 1'),
-            ),
-            ListTile(
-              title: Text('Item 2'),
+              child: const Center(child: Text('IMAGEN')),
             ),
           ],
         ),
       ),
-      bottomNavigationBar:BottomNavigationBar(
-        items:const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ]
-      )
-    ));
+    );
   }
-} 
+
+  Widget _buildIcon(IconData icon) {
+    return Container(
+      width: 60,
+      height: 60,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Icon(icon),
+    );
+  }
+}
