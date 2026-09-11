@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_class/widgets/calculadora_new/ActionButton2.dart';
-import 'package:flutter_application_class/widgets/calculadora_new/Input2.dart';
-import 'package:flutter_application_class/widgets/calculadora_new/NumberInput2.dart';
+import 'package:flutter_application_class/unidad-1/calculadora_new/ActionButton2.dart';
+import 'package:flutter_application_class/unidad-1/calculadora_new/Input2.dart';
+import 'package:flutter_application_class/unidad-1/calculadora_new/NumberInput2.dart';
 
 
 void main() {
@@ -162,13 +162,8 @@ class _MyAppState extends State<MyApp> {
                       labelAction: "CLEAR"
                       ),
                   )
-                   
                   ]
-                  
                 ),
-              
-               
-                
                 ),
         drawer: Drawer(
           child: ListView(padding: EdgeInsets.zero, children: [
