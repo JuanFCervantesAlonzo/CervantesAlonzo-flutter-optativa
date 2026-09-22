@@ -1,47 +1,22 @@
 import 'package:flutter/material.dart';
-import 'widgets/Calculadora.dart';
+
+import 'screens/home_screen.dart';
+import 'theme/app_theme.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const CatalogApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class CatalogApp extends StatelessWidget {
+  const CatalogApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Calculadora',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Inicio(),
-    );
-  }
-}
-
-class Inicio extends StatelessWidget {
-  const Inicio({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Inicio'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Calculadora(),
-              ),
-            );
-          },
-          child: const Text('Abrir calculadora'),
-        ),
-      ),
+      theme: AppTheme.dark,
+      home: const HomeScreen(),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_class/widgets/OperationButtons.dart';
-import 'package:flutter_application_class/widgets/MyCustomInput.dart';
-import 'package:flutter_application_class/widgets/ResultText.dart';
+// import 'package:flutter_application_class/widgets/OperationButtons.dart';
+// import 'package:flutter_application_class/widgets/MyCustomInput.dart';
+// import 'package:flutter_application_class/widgets/ResultText.dart';
 
 void main() {
   runApp(const MainApp());
