@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:convert';
 
+import '../api/store_api.dart';
 import '../props/product.dart';
 import 'carts_screen.dart';
+import 'product_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,9 +15,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
 
-  static const pages = [
-    _ProductsPage(),
-    CartsScreen(),
+  final List<Widget> pages = [
+    const _ProductsPage(),
+    const CartsScreen(),
   ];
 
   void selectPage(int index) {
@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(selectedIndex == 0 ? 'Prodctos' : 'Carritos de compra'),
+        title: Text(selectedIndex == 0 ? 'Productos' : 'Carritos de compra'),
       ),
       body: pages[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -54,19 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
 class _ProductsPage extends StatelessWidget {
   const _ProductsPage();
 
-  Future<List<Product>> loadProducts() async {
-    final jsonString = await rootBundle.loadString('lib/api/products.json');
-    final jsonList = jsonDecode(jsonString) as List<dynamic>;
-
-    return jsonList
-        .map((json) => Product.fromJson(json as Map<String, dynamic>))
-        .toList();
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Product>>(
-      future: loadProducts(),
+      future: FakeStoreApi.instance.getProducts(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -124,6 +115,13 @@ class _ProductsPage extends StatelessWidget {
                     ],
                   ),
                 ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => ProductDetailScreen(productId: product.id),
+                    ),
+                  );
+                },
               ),
             );
           },
